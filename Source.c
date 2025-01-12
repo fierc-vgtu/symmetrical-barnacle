@@ -5,26 +5,26 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define PI 3.14 // число пи
-#define n 10 // размер массива
+#define PI 3.14 // С‡РёСЃР»Рѕ РїРё
+#define n 10 // СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
 
-double F1(double x);  // определение функции F1
-double F2(double x);  // определение функции F2
-double F3(double x);  // определение функции F3
-void A(double xmin, double dx, double* values);  // генерирует массив значений x
-void B(double* array, int N, double xmin, double xmax);  // генерирует уникальные случайные значения
-void result(FILE* outputFile, double x, int func_num, double (*func)(double));  // выводит результат в файл
-double find_min(double (*func)(double), double* values, int N);  // находит минимальное значение
-double find_max(double (*func)(double), double* values, int N);  // находит максимальное значение
-double differentiate(double (*func)(double), double x, double epsilon);  // приближенное дифференцирование
+double F1(double x);  // РѕРїСЂРµРґРµР»РµРЅРёРµ С„СѓРЅРєС†РёРё F1
+double F2(double x);  // РѕРїСЂРµРґРµР»РµРЅРёРµ С„СѓРЅРєС†РёРё F2
+double F3(double x);  // РѕРїСЂРµРґРµР»РµРЅРёРµ С„СѓРЅРєС†РёРё F3
+void A(double xmin, double dx, double* values);  // РіРµРЅРµСЂРёСЂСѓРµС‚ РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ x
+void B(double* array, int N, double xmin, double xmax);  // РіРµРЅРµСЂРёСЂСѓРµС‚ СѓРЅРёРєР°Р»СЊРЅС‹Рµ СЃР»СѓС‡Р°Р№РЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
+void result(FILE* outputFile, double x, int func_num, double (*func)(double));  // РІС‹РІРѕРґРёС‚ СЂРµР·СѓР»СЊС‚Р°С‚ РІ С„Р°Р№Р»
+double find_min(double (*func)(double), double* values, int N);  // РЅР°С…РѕРґРёС‚ РјРёРЅРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
+double find_max(double (*func)(double), double* values, int N);  // РЅР°С…РѕРґРёС‚ РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
+double differentiate(double (*func)(double), double x, double epsilon);  // РїСЂРёР±Р»РёР¶РµРЅРЅРѕРµ РґРёС„С„РµСЂРµРЅС†РёСЂРѕРІР°РЅРёРµ
 
-void menu(FILE* outputFile);  // меню для выбора действий
+void menu(FILE* outputFile);  // РјРµРЅСЋ РґР»СЏ РІС‹Р±РѕСЂР° РґРµР№СЃС‚РІРёР№
 
 int main() {
-    setlocale(LC_CTYPE, "RUS");  // установка локали для русского языка
-    FILE* outputFile = fopen("output.csv", "w");  // открытие файла для записи
-    menu(outputFile);  // вызов меню
-    fclose(outputFile);  // закрытие файла
+    setlocale(LC_CTYPE, "RUS");  // СѓСЃС‚Р°РЅРѕРІРєР° Р»РѕРєР°Р»Рё РґР»СЏ СЂСѓСЃСЃРєРѕРіРѕ СЏР·С‹РєР°
+    FILE* outputFile = fopen("output.csv", "w");  // РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° РґР»СЏ Р·Р°РїРёСЃРё
+    menu(outputFile);  // РІС‹Р·РѕРІ РјРµРЅСЋ
+    fclose(outputFile);  // Р·Р°РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°
     return 0;
 }
 
@@ -35,181 +35,183 @@ void menu(FILE* outputFile) {
     double* array;
 
     while (1) {
-        printf("Главное меню:\n");
-        printf("1. Вычисление функции\n");
-        printf("2. Табуляция функции\n");
-        printf("3. Генерация уникальных случайных значений\n");
-        printf("4. Определение минимального и максимального значений\n");
-        printf("5. Дифференцирование функции в заданной точке\n");
-        printf("6. Выход\n");
-        scanf("%d", &choice);  // выбор пункта меню
+        printf("Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ:\n");
+        printf("1. Р’С‹С‡РёСЃР»РµРЅРёРµ С„СѓРЅРєС†РёРё\n");
+        printf("2. РўР°Р±СѓР»СЏС†РёСЏ С„СѓРЅРєС†РёРё\n");
+        printf("3. Р“РµРЅРµСЂР°С†РёСЏ СѓРЅРёРєР°Р»СЊРЅС‹С… СЃР»СѓС‡Р°Р№РЅС‹С… Р·РЅР°С‡РµРЅРёР№\n");
+        printf("4. РћРїСЂРµРґРµР»РµРЅРёРµ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ Рё РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёР№\n");
+        printf("5. Р”РёС„С„РµСЂРµРЅС†РёСЂРѕРІР°РЅРёРµ С„СѓРЅРєС†РёРё РІ Р·Р°РґР°РЅРЅРѕР№ С‚РѕС‡РєРµ\n");
+        printf("6. Р’С‹С…РѕРґ\n");
+        scanf("%d", &choice);  // РІС‹Р±РѕСЂ РїСѓРЅРєС‚Р° РјРµРЅСЋ
 
         switch (choice) {
         case 1:
-            printf("Выберите функцию:\n1 - F1\n2 - F2\n3 - F3\n");
-            scanf("%d", &func_choice);  // выбор функции
-            printf("Введите значение x:\n");
-            scanf("%lf", &x);  // ввод значения x
-            fprintf(outputFile, "|x\t\t|F%d(x)\t\t|\n", func_choice);  // вывод в файл
+            printf("Р’С‹Р±РµСЂРёС‚Рµ С„СѓРЅРєС†РёСЋ:\n1 - F1\n2 - F2\n3 - F3\n");
+            scanf("%d", &func_choice);  // РІС‹Р±РѕСЂ С„СѓРЅРєС†РёРё
+            printf("Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ x:\n");
+            scanf("%lf", &x);  // РІРІРѕРґ Р·РЅР°С‡РµРЅРёСЏ x
+            fprintf(outputFile, "|x\t\t|F%d(x)\t\t|\n", func_choice);  // РІС‹РІРѕРґ РІ С„Р°Р№Р»
             fprintf(outputFile, "_________________________\n");
             switch (func_choice) {
-            case 1: result(outputFile, x, 1, F1); break;  // вычисление и вывод результата для F1
-            case 2: result(outputFile, x, 2, F2); break;  // вычисление и вывод результата для F2
-            case 3: result(outputFile, x, 3, F3); break;  // вычисление и вывод результата для F3
-            default: printf("Некорректный выбор функции.\n");
+            case 1: result(outputFile, x, 1, F1); break;  // РІС‹С‡РёСЃР»РµРЅРёРµ Рё РІС‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р° РґР»СЏ F1
+            case 2: result(outputFile, x, 2, F2); break;  // РІС‹С‡РёСЃР»РµРЅРёРµ Рё РІС‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р° РґР»СЏ F2
+            case 3: result(outputFile, x, 3, F3); break;  // РІС‹С‡РёСЃР»РµРЅРёРµ Рё РІС‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р° РґР»СЏ F3
+            default: printf("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІС‹Р±РѕСЂ С„СѓРЅРєС†РёРё.\n");
             }
             break;
         case 2:
-            printf("Выберите функцию:\n1 - F1\n2 - F2\n3 - F3\n");
-            scanf("%d", &func_choice);  // выбор функции
-            printf("Введите начальное значение (xmin):\n");
-            scanf("%lf", &xmin);  // ввод xmin
-            printf("Введите шаг (dx):\n");
-            scanf("%lf", &dx);  // ввод dx
-            A(xmin, dx, values);  // вызов функции A для генерации значений
-            fprintf(outputFile, "|x\t\t|F%d(x)\t\t|\n", func_choice);  // вывод в файл
+            printf("Р’С‹Р±РµСЂРёС‚Рµ С„СѓРЅРєС†РёСЋ:\n1 - F1\n2 - F2\n3 - F3\n");
+            scanf("%d", &func_choice);  // РІС‹Р±РѕСЂ С„СѓРЅРєС†РёРё
+            printf("Р’РІРµРґРёС‚Рµ РЅР°С‡Р°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ (xmin):\n");
+            scanf("%lf", &xmin);  // РІРІРѕРґ xmin
+            printf("Р’РІРµРґРёС‚Рµ С€Р°Рі (dx):\n");
+            scanf("%lf", &dx);  // РІРІРѕРґ dx
+            A(xmin, dx, values);  // РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё A РґР»СЏ РіРµРЅРµСЂР°С†РёРё Р·РЅР°С‡РµРЅРёР№
+            fprintf(outputFile, "|x\t\t|F%d(x)\t\t|\n", func_choice);  // РІС‹РІРѕРґ РІ С„Р°Р№Р»
             fprintf(outputFile, "_________________________\n");
-            for (int i = 0; i < n; i++) {  // перебор значений и вычисление функции
+            for (int i = 0; i < n; i++) {  // РїРµСЂРµР±РѕСЂ Р·РЅР°С‡РµРЅРёР№ Рё РІС‹С‡РёСЃР»РµРЅРёРµ С„СѓРЅРєС†РёРё
                 switch (func_choice) {
                 case 1: fprintf(outputFile, "|%.5lf\t|%lf\t|\n", values[i], F1(values[i])); break;
                 case 2: fprintf(outputFile, "|%.5lf\t|%lf\t|\n", values[i], F2(values[i])); break;
                 case 3: fprintf(outputFile, "|%.5lf\t|%lf\t|\n", values[i], F3(values[i])); break;
-                default: printf("Некорректный выбор функции.\n"); break;
+                default: printf("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІС‹Р±РѕСЂ С„СѓРЅРєС†РёРё.\n"); break;
                 }
             }
             break;
         case 3:
-            printf("Введите начальное значение (xmin):\n");
-            scanf("%lf", &xmin);  // ввод xmin
-            printf("Введите конечное значение (xmax):\n");
-            scanf("%lf", &xmax);  // ввод xmax
-            printf("Введите количество значений N:\n");
-            scanf("%d", &N);  // ввод N
-            array = (double*)malloc(N * sizeof(double));  // выделение памяти для массива
-            B(array, N, xmin, xmax);  // вызов функции B для генерации уникальных случайных значений
-            fprintf(outputFile, "Сгенерированные уникальные значения:\n");
+            printf("Р’РІРµРґРёС‚Рµ РЅР°С‡Р°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ (xmin):\n");
+            scanf("%lf", &xmin);  // РІРІРѕРґ xmin
+            printf("Р’РІРµРґРёС‚Рµ РєРѕРЅРµС‡РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ (xmax):\n");
+            scanf("%lf", &xmax);  // РІРІРѕРґ xmax
+            printf("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РµРЅРёР№ N:\n");
+            scanf("%d", &N);  // РІРІРѕРґ N
+            array = (double*)malloc(N * sizeof(double));  // РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ РјР°СЃСЃРёРІР°
+            B(array, N, xmin, xmax);  // РІС‹Р·РѕРІ С„СѓРЅРєС†РёРё B РґР»СЏ РіРµРЅРµСЂР°С†РёРё СѓРЅРёРєР°Р»СЊРЅС‹С… СЃР»СѓС‡Р°Р№РЅС‹С… Р·РЅР°С‡РµРЅРёР№
+            fprintf(outputFile, "РЎРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹Рµ СѓРЅРёРєР°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ:\n");
             for (int i = 0; i < N; i++) {
-                fprintf(outputFile, "%lf\n", array[i]);  // вывод значений в файл
+                fprintf(outputFile, "%lf\n", array[i]);  // РІС‹РІРѕРґ Р·РЅР°С‡РµРЅРёР№ РІ С„Р°Р№Р»
             }
-            free(array);  // освобождение памяти
+            free(array);  // РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
             break;
         case 4:
-            printf("Выберите функцию:\n1 - F1\n2 - F2\n3 - F3\n");
-            scanf("%d", &func_choice);  // выбор функции
-            printf("Введите начальное значение (xmin):\n");
-            scanf("%lf", &xmin);  // ввод xmin
-            printf("Введите конечное значение (xmax):\n");
-            scanf("%lf", &xmax);  // ввод xmax
-            printf("Введите количество значений N:\n");
-            scanf("%d", &N);  // ввод N
+            printf("Р’С‹Р±РµСЂРёС‚Рµ С„СѓРЅРєС†РёСЋ:\n1 - F1\n2 - F2\n3 - F3\n");
+            scanf("%d", &func_choice);  // РІС‹Р±РѕСЂ С„СѓРЅРєС†РёРё
+            printf("Р’РІРµРґРёС‚Рµ РЅР°С‡Р°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ (xmin):\n");
+            scanf("%lf", &xmin);  // РІРІРѕРґ xmin
+            printf("Р’РІРµРґРёС‚Рµ РєРѕРЅРµС‡РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ (xmax):\n");
+            scanf("%lf", &xmax);  // РІРІРѕРґ xmax
+            printf("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РµРЅРёР№ N:\n");
+            scanf("%d", &N);  // РІРІРѕРґ N
 
-            array = (double*)malloc(N * sizeof(double));  // выделение памяти для массива
-            B(array, N, xmin, xmax);  // генерация уникальных значений
+            array = (double*)malloc(N * sizeof(double));  // РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ РјР°СЃСЃРёРІР°
+            B(array, N, xmin, xmax);  // РіРµРЅРµСЂР°С†РёСЏ СѓРЅРёРєР°Р»СЊРЅС‹С… Р·РЅР°С‡РµРЅРёР№
 
-            double (*selected_func)(double) = NULL;  // указатель на выбранную функцию
+            double (*selected_func)(double) = NULL;  // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РІС‹Р±СЂР°РЅРЅСѓСЋ С„СѓРЅРєС†РёСЋ
             switch (func_choice) {
-            case 1: selected_func = F1; break;  // выбор F1
-            case 2: selected_func = F2; break;  // выбор F2
-            case 3: selected_func = F3; break;  // выбор F3
+            case 1: selected_func = F1; break;  // РІС‹Р±РѕСЂ F1
+            case 2: selected_func = F2; break;  // РІС‹Р±РѕСЂ F2
+            case 3: selected_func = F3; break;  // РІС‹Р±РѕСЂ F3
             default:
-                printf("Некорректный выбор функции.\n");
+                printf("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІС‹Р±РѕСЂ С„СѓРЅРєС†РёРё.\n");
                 free(array);
                 return;
             }
 
-            double* func_values = (double*)malloc(N * sizeof(double));  // выделение памяти для значений функции
-            if (!func_values) {
-                printf("Ошибка выделения памяти для массива значений функции.\n");
-                free(array);
-                return;
-            }
+            double* func_values = (double*)malloc(N * sizeof(double));  // РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ Р·РЅР°С‡РµРЅРёР№ С„СѓРЅРєС†РёРё
+  
 
-            for (int i = 0; i < N; i++) {  // вычисление значений функции для каждого аргумента
+            for (int i = 0; i < N; i++) {  // РІС‹С‡РёСЃР»РµРЅРёРµ Р·РЅР°С‡РµРЅРёР№ С„СѓРЅРєС†РёРё РґР»СЏ РєР°Р¶РґРѕРіРѕ Р°СЂРіСѓРјРµРЅС‚Р°
                 func_values[i] = selected_func(array[i]);
             }
 
-            double min_value = find_min(selected_func, func_values, N);  // нахождение минимального значения
-            double max_value = find_max(selected_func, func_values, N);  // нахождение максимального значения
+            double min_value = find_min(selected_func, func_values, N);  // РЅР°С…РѕР¶РґРµРЅРёРµ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
+            double max_value = find_max(selected_func, func_values, N);  // РЅР°С…РѕР¶РґРµРЅРёРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
 
-            printf("Минимальное значение: %.5lf\n", min_value);  // вывод минимального значения
-            printf("Максимальное значение: %.5lf\n", max_value);  // вывод максимального значения
+            printf("РњРёРЅРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ: %.5lf\n", min_value);  // РІС‹РІРѕРґ РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
+            printf("РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ: %.5lf\n", max_value);  // РІС‹РІРѕРґ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
 
-            free(func_values);  // освобождение памяти
-            free(array);  // освобождение памяти
+            free(func_values);  // РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
+            free(array);  // РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
             break;
 
 
         case 5:
-            printf("Введите точку для дифференцирования:\n");
-            scanf("%lf", &x);  // ввод точки
-            printf("Производная функции F1 в точке %.5lf: %.5lf\n", x, differentiate(F1, x, epsilon));  // вычисление производной
+            printf("Р’РІРµРґРёС‚Рµ С‚РѕС‡РєСѓ РґР»СЏ РґРёС„С„РµСЂРµРЅС†РёСЂРѕРІР°РЅРёСЏ:\n");
+            scanf("%lf", &x);  // РІРІРѕРґ С‚РѕС‡РєРё
+            printf("РџСЂРѕРёР·РІРѕРґРЅР°СЏ С„СѓРЅРєС†РёРё F1 РІ С‚РѕС‡РєРµ %.5lf: %.5lf\n", x, differentiate(F1, x, epsilon));  // РІС‹С‡РёСЃР»РµРЅРёРµ РїСЂРѕРёР·РІРѕРґРЅРѕР№
             break;
         case 6:
-            printf("Выход из программы.\n");
+            printf("Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹.\n");
             return;
         default:
-            printf("Некорректный выбор. Попробуйте снова.\n");
+            printf("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n");
             break;
         }
     }
 }
 
 double F1(double x) {
-    return pow(sqrt(fabs(2 * x + 1)), 3) / ((1.0 / 3.0) * pow(sin(x), 2) - (3.0 / 7.0) * log(fabs(x)));  // определение функции F1
+    double  y;
+    y = pow(sqrt(fabs(2 * x + 1)), 3) / ((1.0 / 3.0) * pow(sin(x), 2) - (3.0 / 7.0) * log(fabs(x)));  // РѕРїСЂРµРґРµР»РµРЅРёРµ С„СѓРЅРєС†РёРё F1
+    return y;
 }
 double F2(double x) {
+    double y, z;
     if (x > PI) {
-        return pow(fabs(cos(x)), x);
+        y = pow(fabs(cos(x)), x);
+        return y;
     }
-    else return pow(x, cos(x));  // определение функции F2
+    else z = pow(x, cos(x)); return z;  // РѕРїСЂРµРґРµР»РµРЅРёРµ С„СѓРЅРєС†РёРё F2
 }
 double F3(double x) {
-    int k = 1000;  // Число разбиений
+    int k = 1000;  // Р§РёСЃР»Рѕ СЂР°Р·Р±РёРµРЅРёР№
     double sum = 0.0;
-    double dx = x / k;  // Шаг интегрирования
+    double dx = x / k;  // РЁР°Рі РёРЅС‚РµРіСЂРёСЂРѕРІР°РЅРёСЏ
 
     for (int i = 0; i < k; i++) {
-        double t = i * dx;  // Текущая точка
-        sum += sin(PI / 2 * t * t);  // Добавляем вклад от текущей точки
+        double t = i * dx;  // РўРµРєСѓС‰Р°СЏ С‚РѕС‡РєР°
+        sum += sin(PI / 2 * t * t);  // Р”РѕР±Р°РІР»СЏРµРј РІРєР»Р°Рґ РѕС‚ С‚РµРєСѓС‰РµР№ С‚РѕС‡РєРё
     }
 
-    return sum * dx;  // Умножаем на шаг для получения интеграла
+    return sum * dx;  // РЈРјРЅРѕР¶Р°РµРј РЅР° С€Р°Рі РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРЅС‚РµРіСЂР°Р»Р°
 }
 void A(double xmin, double dx, double* values) {
     for (int i = 0; i < n; i++)
-        values[i] = xmin + i * dx;  // генерация массива значений с шагом dx
+        values[i] = xmin + i * dx;  // РіРµРЅРµСЂР°С†РёСЏ РјР°СЃСЃРёРІР° Р·РЅР°С‡РµРЅРёР№ СЃ С€Р°РіРѕРј dx
 }
 void B(double* array, int N, double xmin, double xmax) {
     int count = 0;
     while (count < N) {
-        double num = xmin + (double)rand() / RAND_MAX * (xmax - xmin);  // генерация случайного числа
+        double num = xmin + (double)rand() / RAND_MAX * (xmax - xmin);  // РіРµРЅРµСЂР°С†РёСЏ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ С‡РёСЃР»Р°
         int unique = 1;
         for (int i = 0; i < count; i++) {
-            if (fabs(array[i] - num) < 1e-6) {  // проверка уникальности значения
+            if (fabs(array[i] - num) < 1e-6) {  // РїСЂРѕРІРµСЂРєР° СѓРЅРёРєР°Р»СЊРЅРѕСЃС‚Рё Р·РЅР°С‡РµРЅРёСЏ
                 unique = 0;
                 break;
             }
         }
-        if (unique) array[count++] = num;  // добавление уникального значения в массив
+        if (unique) array[count++] = num;  // РґРѕР±Р°РІР»РµРЅРёРµ СѓРЅРёРєР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ РІ РјР°СЃСЃРёРІ
     }
 }
 void result(FILE* outputFile, double x, int func_num, double (*func)(double)) {
-    fprintf(outputFile, "|%.3lf\t|%lf\t|\n", x, func(x));  // вывод результата в файл
+    fprintf(outputFile, "|%.3lf\t|%lf\t|\n", x, func(x));  // РІС‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р° РІ С„Р°Р№Р»
 }
 double find_min(double (*func)(double), double* values, int N) {
     double min = values[0];
     for (int i = 1; i < N; i++)
-        if (values[i] < min)  // поиск минимального значения
+        if (values[i] < min)  // РїРѕРёСЃРє РјРёРЅРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
             min = values[i];
     return min;
 }
 double find_max(double (*func)(double), double* values, int N) {
     double max = values[0];
     for (int i = 1; i < N; i++)
-        if (values[i] > max)  // поиск максимального значения
+        if (values[i] > max)  // РїРѕРёСЃРє РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ
             max = values[i];
     return max;
 }
 double differentiate(double (*func)(double), double x, double epsilon) {
-    return (func(x + epsilon) - func(x)) / epsilon;  // приближенное дифференцирование
+    double y;
+    y = (func(x + epsilon) - func(x)) / epsilon; // РїСЂРёР±Р»РёР¶РµРЅРЅРѕРµ РґРёС„С„РµСЂРµРЅС†РёСЂРѕРІР°РЅРёРµ
+    return y;
 }
